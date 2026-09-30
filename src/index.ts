@@ -32,7 +32,7 @@ const bookSchema = new mongoose.Schema<IBook>({
     versionKey: false
 })
 
-const Book = mongoose.model("book", bookSchema)
+const Book = mongoose.model("book", bookSchema, "libros")
 
 const generateError = (message: string, name: string) => {
     const error = new Error(message)
