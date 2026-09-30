@@ -194,3 +194,47 @@ const deleteBook = async (id: string | undefined) => {
     return handleError(e)
     }
 }
+
+const main = async () => {
+    connectDb(URI_DB)
+
+    switch (action) {
+    case "info":
+        console.log(`
+        show → para leer los libros
+        create data → para crear un libro
+        update id data → para actualizar un libro
+        delete id → para borrar un libro
+        `)
+        break
+
+    case "show":
+        console.log(await getBooks(args[1]))
+        break
+
+    case "create":
+      // --titulo="El Principito" --autor="Antoine de Saint-Exupéry" --precio=15000 --stock=10
+        console.log(await createBook(args.splice(1)))
+        break
+
+    case "update":
+      // update ID --titulo="El Principito" --precio=18000
+        console.log(
+        await updateBook(args[1], args.slice(2))
+        )
+        break
+
+    case "delete":
+        console.log(await deleteBook(args[1]))
+        break
+
+    default:
+        console.log(
+        "commands: <show | create | update | delete>"
+        )
+    }
+
+    await mongoose.disconnect()
+}
+
+main()
